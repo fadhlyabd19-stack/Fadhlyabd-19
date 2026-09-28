@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # 1. Server Utama Presensi Sekolah (Pure Python FastAPI)
+  presensi-backend:
+    build:
+      context: ..
+      dockerfile: python/Dockerfile
+    container_name: school_attendance_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://presensi_user:rahasia_sekolah@db:5432/presensi_db
+      - WA_PROVIDER=FONNTE
+      - FONNTE_API_TOKEN=YOUR_TOKEN_HERE
+      - SCHOOL_NAME=Sekolah Al-Haraki
+    depends_on:
+      - db
+    volumes:
+      - ./storage/photos:/app/storage/photos
+
+  # 2. Database PostgreSQL Produksi
+  db:
+    image: postgres:15-alpine
+    container_name: school_attendance_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: presensi_user
+      POSTGRES_PASSWORD: rahasia_sekolah
+      POSTGRES_DB: presensi_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

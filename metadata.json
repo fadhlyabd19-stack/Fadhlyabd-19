@@ -1,0 +1,6 @@
+{
+  "name": "Sistem Presensi Sekolah Pintar (RFID & Face ID)",
+  "description": "Aplikasi sistem absensi digital guru & siswa Preschool–SMA menggunakan RFID dan Face ID mobile dengan notifikasi WhatsApp real-time dan rekap dashboard.",
+  "requestFramePermissions": ["camera", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
